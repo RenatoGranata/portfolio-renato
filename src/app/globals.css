@@ -1,26 +1,167 @@
 @import "tailwindcss";
 
+/* Tells Tailwind: use the data-theme="dark" attribute to activate dark mode,
+   instead of its default (which would be the .dark class) */
+@custom-variant dark (&:where([data-theme="dark"] *));
+@custom-variant light (&:where([data-theme="light"] *));
+
+/* ===================================================
+   LAYER 1 — raw color values, per theme
+   =================================================== */
+
+/* Dark theme = default (root) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b0f1a;
+  --background-secondary: #0f1524;
+  --background-tertiary: #151c30;
+  --surface: rgba(255, 255, 255, 0.03);
+
+  --primary-rgb: 91, 140, 255; /*,0.15*/
+  --secondary-rgb: 34, 211, 170;
+  --border-strong: 148, 160, 184, 0.25;
+  --surface-strong: 255, 255, 255, 0.6;
+
+  --foreground: #eef1f8;
+  --foreground-secondary: #94a0b8;
+  --foreground-muted: #5a6478;
+
+  --primary: #5b8cff;
+  --primary-soft: rgba(91, 140, 255, 0.12);
+
+  --secondary: #22d3aa;
+  --secondary-soft: rgba(34, 211, 170, 0.1);
+
+  --border: rgba(148, 160, 184, 0.14);
+
+  --glow: radial-gradient(ellipse 50% 40% at 50% 0%, rgba(91, 140, 255, 0.13), transparent);
+  
+  --project-preview-bg: radial-gradient(140% 140% at 100% 0%, 
+    primary 20% misturado com background-tertiary,
+    background-tertiary 62%
+  );
+
 }
+
+/* Light theme — overrides the same variables when the attribute is present */
+[data-theme="light"] {
+  --background: #f7f8fc;
+  --background-secondary: #ffffff;
+  --background-tertiary: #eef1f8;
+  --surface: #ffffff;
+
+  --primary-rgb: 59, 108, 240;
+  --secondary-rgb: 13, 165, 131;
+  --border-strong: 15, 21, 36, 0.18;
+  --surface-strong: #ffffff;
+
+  --foreground: #0f1524;
+  --foreground-secondary: #4a5568;
+  --foreground-muted: #94a0b8;
+
+  --primary: #3b6cf0;
+  --primary-soft: rgba(59, 108, 240, 0.08);
+
+  --secondary: #0da583;
+  --secondary-soft: rgba(13, 165, 131, 0.08);
+
+  --border: rgba(15, 21, 36, 0.1);
+  
+  --glow: radial-gradient(ellipse 50% 40% at 50% 0%, rgba(59, 108, 240, 0.08), transparent);
+
+  --project-preview-bg: radial-gradient(140% 140% at 100% 0%, 
+    primary 20% misturado com background-tertiary,
+    background-tertiary 62%
+  );
+
+}
+
+/* ===================================================
+   LAYER 2 — exposes the variables to Tailwind
+   (this is where the utility classes are generated)
+   =================================================== */
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+  --color-surface: var(--surface);
+
+  --color-primary-rgb: var(--primary-rgb);
+  --color-secondary-rgb: var(--secondary-rgb);
+  --color-border-strong: var(--border-strong);
+  --color-surface-strong: var(--surface-strong);
+
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+
+  --color-primary: var(--primary);
+  --color-primary-soft: var(--primary-soft);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-soft: var(--secondary-soft);
+
+  --color-border: var(--border);
+
+  --color-project-preview-bg: var(--project-preview-bg)
+
+  --font-display: var(--font-display);
+  --font-inter: var(--font-inter);
+  --font-jetmono: var(--font-jetmono);
+  --text-section-title: clamp(2rem, 4.5vw, 3rem);
+
+  --animate-blink: blink 1s step-end infinite;
+
+  --animate-floating: floating 5s linear infinite;
+
+  --animate-progress-slide: progressSlide 2s linear infinite;
+
+  --animate-scan-line: scanLine 2s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes scanLine {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(300%);
   }
 }
 
+@keyframes progressSlide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  99% {
+    transform: translateY(-30rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+/* Base body styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
