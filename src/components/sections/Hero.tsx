@@ -51,7 +51,6 @@ export function Hero() {
         style={{ background: "var(--glow)" }}
       />
 
-      {/* Vou pensar se vou manter */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
