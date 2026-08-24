@@ -2,7 +2,7 @@
 
 Site pessoal para apresentar quem eu sou, minhas habilidades e os projetos que venho desenvolvendo, enquanto busco minha primeira oportunidade como desenvolvedor front-end.
 
-**Acesse:** *(link após o deploy)*
+**Acesse:** https://renatomg-dev.vercel.app/
 
 ## Tecnologias
 
